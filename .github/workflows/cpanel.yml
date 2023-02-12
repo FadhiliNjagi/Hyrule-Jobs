@@ -1,0 +1,36 @@
+name: Auto-Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  FTP_HOST: ${{ secrets.IP }}
+  FTP_USERNAME: ${{ secrets.USERNAME }}
+  FTP_PASSWORD: ${{ secrets.PASSWORD }}
+  FTP_PORT: ${{ secrets.PORT }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build website
+      run: npm run build
+
+    - name: Deploy to FTP
+      uses: Creepios/sftp-action@v1.0.3
+      with:
+        host: ${{ env.FTP_HOST }}
+        port: ${{ env.FTP_PORT }}
+        username: ${{ env.FTP_USERNAME }}
+        password: ${{ env.FTP_PASSWORD }}
+        localPath: dist
+        remotePath: '/home/nixqueco/test.nixque.com'

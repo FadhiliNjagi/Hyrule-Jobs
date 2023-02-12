@@ -6,10 +6,10 @@ on:
       - master
 
 env:
-  FTP_HOST: ${{ vars.IP }}
-  FTP_USERNAME: ${{ vars.USERNAME }}
-  FTP_PASSWORD: ${{ vars.PASSWORD }}
-  FTP_PORT: ${{ vars.PORT }}
+  FTP_HOST: ${{ secrets.IP }}
+  FTP_USERNAME: ${{ secrets.USERNAME }}
+  FTP_PASSWORD: ${{ secrets.PASSWORD }}
+  FTP_PORT: ${{ secrets.PORT }}
 
 jobs:
   deploy:
@@ -27,13 +27,14 @@ jobs:
       run: npm run build
 
     - name: Deploy to FTP
-      uses: Creepios/sftp-action@v1.0.3
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        host: ${{ env.FTP_HOST }}
+        server: ${{ env.FTP_HOST }}
         port: ${{ env.FTP_PORT }}
         username: ${{ env.FTP_USERNAME }}
         password: ${{ env.FTP_PASSWORD }}
-        localPath: dist
-        remotePath: '/home/nixqueco/test.nixque.com'
+        local_path: dist
+        remote_path: '/home/nixqueco/test.nixque.com'
+        sftp_only: true
 
         

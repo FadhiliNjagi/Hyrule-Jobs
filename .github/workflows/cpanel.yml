@@ -35,3 +35,5 @@ jobs:
         password: ${{ env.FTP_PASSWORD }}
         localPath: dist
         remotePath: '/home/nixqueco/test.nixque.com'
+
+        

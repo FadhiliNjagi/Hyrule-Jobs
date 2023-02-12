@@ -33,7 +33,7 @@ jobs:
         port: ${{ env.FTP_PORT }}
         username: ${{ env.FTP_USERNAME }}
         password: ${{ env.FTP_PASSWORD }}
-        local-dir: dist
+        local-dir: dist/
         server-dir: ./
         dangerous-clean-slate: true
         timeout: 60000

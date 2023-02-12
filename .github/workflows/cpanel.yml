@@ -6,10 +6,10 @@ on:
       - master
 
 env:
-  FTP_HOST: ${{ secrets.IP }}
-  FTP_USERNAME: ${{ secrets.USERNAME }}
+  FTP_SERVER: ${{ vars.SERVER }}
+  FTP_USERNAME: ${{ vars.USERNAME }}
   FTP_PASSWORD: ${{ secrets.PASSWORD }}
-  FTP_PORT: ${{ secrets.PORT }}
+  FTP_PORT: ${{ vars.PORT }}
 
 jobs:
   deploy:
@@ -27,14 +27,15 @@ jobs:
       run: npm run build
 
     - name: Deploy to FTP
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
       with:
-        server: ${{ env.FTP_HOST }}
+        server: ${{ env.FTP_SERVER }}
         port: ${{ env.FTP_PORT }}
         username: ${{ env.FTP_USERNAME }}
         password: ${{ env.FTP_PASSWORD }}
-        local_path: dist
-        remote_path: '/home/nixqueco/test.nixque.com'
-        sftp_only: true
+        local-dir: dist
+        server-dir: '/'
+        dangerous-clean-slate: true
+        timeout: 60000
 
         

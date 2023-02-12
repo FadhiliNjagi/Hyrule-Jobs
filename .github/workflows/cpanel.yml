@@ -6,10 +6,10 @@ on:
       - master
 
 env:
-  FTP_HOST: ${{ secrets.IP }}
-  FTP_USERNAME: ${{ secrets.USERNAME }}
-  FTP_PASSWORD: ${{ secrets.PASSWORD }}
-  FTP_PORT: ${{ secrets.PORT }}
+  FTP_HOST: ${{ vars.IP }}
+  FTP_USERNAME: ${{ vars.USERNAME }}
+  FTP_PASSWORD: ${{ vars.PASSWORD }}
+  FTP_PORT: ${{ vars.PORT }}
 
 jobs:
   deploy:
